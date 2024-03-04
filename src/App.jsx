@@ -1,24 +1,19 @@
-import Header from './components/header';
-import Login from './components/login';
-import Register from './components/register';
+import { useState } from 'react';
+import ListRoute from './components/ListRoute';
+import Header from './components/Header';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
-    // const url = "http://localhost:8000/api/v1/shortest_path/routes";
-    // const postData = async (url = '') => {
-    //     const response = await fetch(url, {
-    //             method: 'GET',
-    //             headers: {'Accept': 'application/json'}}
-    //         );
-    //         return response.json();
-    // }
-    // const data = postData(url).then((data) => {
-    //     return console.log(data);
-    // });
+    const [routes, setRoutes] = useState([
+        {executor: "Ilya", execution_date: "23.02.2001", count: 30, created_at: "22.02.2001"},
+        {executor: "Max", execution_date: "23.02.2001", count: 35, created_at: "22.02.2001"},
+    ])
     return (
         <div className="App">
             <Header/>
-            {/* <Login/> */}
             <Register/>
+            <ListRoute routes={routes}/>
         </div>
   );
 }

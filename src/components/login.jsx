@@ -3,12 +3,27 @@ import React, { useState } from 'react';
 function Login() {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
+
+    function sendProfile() {
+        const url = "http://localhost:8000/api/v1/shortest_path/auth/login/";
+        const postData = async (url = '') => {
+            const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {'Accept': 'application/json'}}
+                );
+                return response.json();
+        }
+        const data = postData(url).then((data) => {
+            return console.log(data);
+        });
+    }
     return (
+        
         <main className="container mt-3">
             <h1 className="mb-4">Вход</h1>
             <div className="card" style={{"width": "30rem;"}}>
                 <div className="card-body">
-                    <form action="http://localhost:8000/api/v1/shortest_path/auth/login" method="POST">
+                    <form>
                         <div className="mb-3 row">
                             <label className="col-sm-4 col-form-label">E-Mail</label><br/>
                             <div className="col-sm-8">
@@ -21,7 +36,7 @@ function Login() {
                                 <input type="password" name="password" className="form-control" onChange={(e) => setPwd(e.target.value)}/>
                             </div>
                         </div>
-                        <input type="submit" value="Войти" className="btn btn-primary"/>
+                        <input type="submit" value="Войти" className="btn btn-primary" onClick={sendProfile}/>
                     </form>
                 </div>
             </div>

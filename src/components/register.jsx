@@ -9,7 +9,7 @@ function Register() {
             <h1 className="mb-4">Форма регистрации</h1>
             <div className="card" style={{"width": "30rem;"}}>
                 <div className="card-body">
-                    <form action="" method="">
+                    <form>
                         <div className="mb-3 row">
                             <label className="col-sm-4 col-form-label">E-Mail</label><br/>
                             <div className="col-sm-8">
