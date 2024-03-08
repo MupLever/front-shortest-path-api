@@ -6,13 +6,29 @@ import Register from './components/Register';
 
 function App() {
     const [routes, setRoutes] = useState([
-        {executor: "Ilya", execution_date: "23.02.2001", count: 30, created_at: "22.02.2001"},
-        {executor: "Max", execution_date: "23.02.2001", count: 35, created_at: "22.02.2001"},
+        {id: 1, executor: "Ilya", execution_date: "23.02.2001", count: 30, created_at: "22.02.2001", path: [
+            {
+                address: "Moscow, Vladimirskya, 24, 130",
+                duration: 0
+            },
+            {
+                address: "Irkutsk, Deputatskya, 7, 80",
+                duration: 37
+            },
+            {
+                address: "ST, Lenina, 114, 2007",
+                duration: 75
+            },
+            {
+                address: "Moscow, Vladimirskya, 24, 130",
+                duration: 97
+            }],
+            total_duration: 209
+        }
     ])
     return (
         <div className="App">
             <Header/>
-            <Register/>
             <ListRoute routes={routes}/>
         </div>
   );
