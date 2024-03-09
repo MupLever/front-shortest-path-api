@@ -21,7 +21,7 @@ function ListRoute({routes}) {
     };
     return (
         <div>
-            <button onClick={fetchPosts} className="btn btn-primary">Fetch</button>
+            <button onClick={fetchPosts} className='btn btn-primary'>Fetch</button>
             {posts.map(route => 
                 <RouteItem route={route} key={route.id}/>
             )}
