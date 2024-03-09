@@ -15,11 +15,13 @@ function Register() {
                 },
                 body: JSON.stringify(data)
             })
-            return response.json();
+            return response.json()
         }
-        postData(url, {email, username, password}).then((data) => {
-            console.log(data);
-        })
+        postData(url, {email, username, password})
+            .then((data) => {
+                console.log(data)
+            }
+        )
     }
     return (
         <main className='container mt-3'>

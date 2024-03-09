@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {AuthContext} from "../context/auth";
 
 function Login() {
+    const {isAuth, setIsAuth} = useContext(AuthContext);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -19,12 +21,12 @@ function Login() {
         }
         postData(url, {email, password}).then((data) => {
             localStorage.setItem('auth', data.access_token)
+            setIsAuth(true)
             const tmp = localStorage.getItem('auth')
             console.log(tmp)
         });
     }
     return (
-        
         <main className='container mt-3'>
             <h1 className='mb-4'>Вход</h1>
             <div className='card' style={{'width': '30rem;'}}>
