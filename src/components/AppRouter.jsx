@@ -34,7 +34,7 @@ const AppRouter = () => {
                 <Route path='routes' element={<Navigate to='/login'/>}/>
                 <Route path='routes/:id' element={<Navigate to='/login'/>}/>
             </Routes>
-    );
-};
+    )
+}
 
 export default AppRouter;

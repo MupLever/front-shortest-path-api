@@ -3,7 +3,7 @@ import {AuthContext} from "../context";
 import { Link } from 'react-router-dom';
 
 function Login() {
-    const {isAuth, setIsAuth} = useContext(AuthContext);
+    const {setIsAuth} = useContext(AuthContext);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -35,13 +35,13 @@ function Login() {
                 <div className='card-body'>
                     <form  onSubmit={login}>
                         <div className='mb-3 row'>
-                            <label className='col-sm-4 col-form-label'>E-Mail</label><br/>
+                            <label className='col-sm-4 col-form-label'>E-Mail</label>
                             <div className='col-sm-8'>
                                 <input type='text' name='username' className='form-control' onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
-                            <label className='col-sm-4 col-form-label'>Пароль</label><br/>
+                            <label className='col-sm-4 col-form-label'>Пароль</label>
                             <div className='col-sm-8'>
                                 <input type='password' name='password' className='form-control' onChange={(e) => setPassword(e.target.value)}/>
                             </div>

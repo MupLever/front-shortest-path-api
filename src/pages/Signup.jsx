@@ -37,19 +37,19 @@ function Signup() {
                             </div>
                         </div>
                         <div className='mb-3 row'>
-                            <label className='col-sm-4 col-form-label'>Имя</label><br/>
+                            <label className='col-sm-4 col-form-label'>Имя</label>
                             <div className='col-sm-8'>
                                 <input type='text' name='username' required placeholder='Jpyatachkov' className='form-control' onChange={(e) => setUsername(e.target.value)}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
-                            <label className='col-sm-4 col-form-label'>Пароль</label><br/>
+                            <label className='col-sm-4 col-form-label'>Пароль</label>
                             <div className='col-sm-8'>
                                 <input type='password' name='password' required className='form-control' onChange={(e) => setPassword(e.target.value)}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
-                            <label className='col-sm-4 col-form-label'>Подтверждение пароля</label><br/>
+                            <label className='col-sm-4 col-form-label'>Подтверждение пароля</label>
                             <div className='col-sm-8'>
                                 <input type='password' name='password_confirmation' required className='form-control'/>
                             </div>
@@ -59,7 +59,7 @@ function Signup() {
                 </div>
             </div>
         </main>
-  );
+    )
 }
 
 export default Signup;

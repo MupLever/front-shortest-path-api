@@ -12,12 +12,12 @@ function RouteId() {
             setRoute(routes)
         }
         fetchData();
-    }, [])
+    }, [params.id])
     return (
         <div>
             <ListAddresses path={route.path}/>
         </div>
-  );
+    )
 }
 
 export default RouteId;

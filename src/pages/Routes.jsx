@@ -15,7 +15,7 @@ function Routes() {
         <div>
             <ListRoute routes={routes}/>
         </div>
-  );
+    )
 }
 
 export default Routes;

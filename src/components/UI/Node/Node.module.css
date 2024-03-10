@@ -1,0 +1,17 @@
+.progressNode{
+    width: 25px; 
+    height: 25px; 
+    border: 3px tea; 
+    border-radius: 50%;
+}
+.pending {
+    background-color:goldenrod;
+}
+
+.completed {
+    background-color: forestgreen;
+}
+
+.deleted {
+    background-color:crimson;
+}
