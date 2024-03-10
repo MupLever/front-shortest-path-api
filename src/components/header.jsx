@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import {AuthContext} from "../context/auth";
+import { Link } from 'react-router-dom';
 
 function Header() {
     const {isAuth, setIsAuth} = useContext(AuthContext);
@@ -16,17 +17,17 @@ function Header() {
             </ul>
             <div className='text-end'>
                 <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
-                    <li><a className='nav-link px-2 text-dark' href='#'>Домой</a></li>
-                    <li><a className='nav-link px-2 text-dark' href='#'>Создать</a></li>
-                    <li><a className='nav-link px-2 text-dark' href='#'>Маршруты</a></li>
-                    <li><a className='nav-link px-2 text-dark' href='#'>Поддержка</a></li>
+                    <li><Link className='nav-link px-2 text-dark' to='#'>Домой</Link></li>
+                    <li><Link className='nav-link px-2 text-dark' to='#'>Создать</Link></li>
+                    <li><Link className='nav-link px-2 text-dark' to='/routes'>Маршруты</Link></li>
+                    <li><Link className='nav-link px-2 text-dark' to='#'>Поддержка</Link></li>
                 </ul>
             </div>
             {isAuth
             ?
-            <a className='btn btn-danger' onClick={logout}>Выйти</a>
+            <Link className='btn btn-danger' onClick={logout}>Выйти</Link>
             :
-            <a className='btn btn-primary' href='#' >Войти</a>
+            <Link className='btn btn-primary' to='/login'>Войти</Link>
             }
         </div>
     );

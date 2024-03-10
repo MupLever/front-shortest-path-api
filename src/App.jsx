@@ -3,25 +3,24 @@ import ListRoute from './components/ListRoute';
 import Header from './components/Header';
 import Login from './pages/Login';
 import { AuthContext } from './context/auth';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './components/AppRouter';
 
 function App() {
     const [isAuth, setIsAuth] = useState(false)
-    // useEffect(() => {
-    //     if (localStorage.getItem('auth')) {
-    //         setIsAuth(true)
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (localStorage.getItem('auth')) {
+            setIsAuth(true)
+        }
+    }, [])
 
     return (
-        <div className='App'>
-            <AuthContext.Provider value={{isAuth, setIsAuth}}>
+        <AuthContext.Provider value={{isAuth, setIsAuth}}>
+            <BrowserRouter>
                 <Header/>
-                <Login/>
-            </AuthContext.Provider>
-
-            {/* <ListRoute routes={routes}/> */}
-            
-        </div>
+                <AppRouter/>
+            </BrowserRouter>
+        </AuthContext.Provider>    
   );
 }
 

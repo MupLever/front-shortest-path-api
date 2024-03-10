@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Register() {
+function Signup() {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -10,7 +10,8 @@ function Register() {
         const postData = async (url = '', data = {}) => {
             const response = await fetch(url, {
                 method: 'POST',
-                headers: {'Accept': 'application/json', 
+                headers: {
+                    'Accept': 'application/json', 
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
@@ -61,4 +62,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Signup;
