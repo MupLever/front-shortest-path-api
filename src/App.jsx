@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import ListRoute from './components/ListRoute';
-import Header from './components/Header';
-import Login from './pages/Login';
-import { AuthContext } from './context/auth';
 import { BrowserRouter } from 'react-router-dom';
+import Header from './components/Header';
+import { AuthContext } from './context';
 import AppRouter from './components/AppRouter';
 
 function App() {

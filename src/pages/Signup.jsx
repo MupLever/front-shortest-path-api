@@ -27,7 +27,7 @@ function Signup() {
     return (
         <main className='container mt-3'>
             <h1 className='mb-4'>Форма регистрации</h1>
-            <div className='card' style={{'width': '30rem;'}}>
+            <div className='card col-6'>
                 <div className='card-body'>
                     <form onSubmit={sigup}>
                         <div className='mb-3 row'>
@@ -54,7 +54,7 @@ function Signup() {
                                 <input type='password' name='password_confirmation' required className='form-control'/>
                             </div>
                         </div>
-                        <input type='submit' value='Создать' className='btn btn-primary'/>
+                        <input type='submit' value='Создать' className='btn btn-dark'/>
                     </form>
                 </div>
             </div>

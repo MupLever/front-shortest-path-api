@@ -9,7 +9,7 @@ function RouteItem({route}) {
             <div className='card-body'>
                 <h5 className='card-title'>Количество заказов: {route.count}</h5>
                 <p className='card-text'>Дата назначения: {route.created_at}</p>
-                <button className='btn btn-primary' onClick={() => navigate(`${route.id}`)}>Открыть</button>
+                <button className='btn btn-dark' onClick={() => navigate(`${route.id}`)}>Открыть</button>
             </div>
         </div>
   );

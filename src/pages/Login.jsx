@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {AuthContext} from "../context/auth";
+import {AuthContext} from "../context";
 import { Link } from 'react-router-dom';
 
 function Login() {
@@ -31,7 +31,7 @@ function Login() {
     return (
         <main className='container mt-3'>
             <h1 className='mb-4'>Вход</h1>
-            <div className='card' style={{'width': '30rem;'}}>
+            <div className='card col-6'>
                 <div className='card-body'>
                     <form  onSubmit={login}>
                         <div className='mb-3 row'>
@@ -46,13 +46,13 @@ function Login() {
                                 <input type='password' name='password' className='form-control' onChange={(e) => setPassword(e.target.value)}/>
                             </div>
                         </div>
-                        <input type='submit' value='Войти' className='btn btn-primary'/>
+                        <input type='submit' value='Войти' className='btn btn-dark'/>
                     </form>
                 </div>
             </div>
             <div className='m-3'>
                 <div className='row'>
-                    <div className='col-10'>Еще не зарегистрированы?</div>
+                    <div className='col-4'>Еще не зарегистрированы?</div>
                     <div className='col-2'>
                         <Link to='/signup' className='px-2 text-dark'>Зарегистрироваться</Link>
                     </div>
