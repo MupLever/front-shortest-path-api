@@ -1,11 +1,11 @@
 import React from 'react';
 import AddressItem from './AddressItem';
 
-function ListAddress({path}) {
+function ListAddress({positions}) {
     return (
         <div>
-            {path.map((node, index) => 
-                <AddressItem address={node.address} duration={node.duration} key={index}/>
+            {positions.map(node => 
+                <AddressItem address={node.address} duration={node.duration} key={node.id}/>
             )}
         </div>
   );

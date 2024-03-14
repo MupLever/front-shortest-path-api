@@ -8,14 +8,14 @@ function RouteId() {
     const [route, setRoute] = useState({path: []})
     useEffect(() => {
         const fetchData = async () => {
-            const routes = await RouteService.getById(params.id)
-            setRoute(routes)
+            const route = await RouteService.getById(params.id)
+            setRoute(route)
         }
         fetchData();
     }, [params.id])
     return (
         <div>
-            <ListAddresses path={route.path}/>
+            <ListAddresses positions={route.positions}/>
         </div>
     )
 }
