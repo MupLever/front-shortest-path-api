@@ -5,14 +5,15 @@ import ListAddresses from '../components/ListAdresses';
 
 function RouteId() {
     const params = useParams();
-    const [route, setRoute] = useState({path: []})
+    const [route, setRoute] = useState({positions: []})
     useEffect(() => {
         const fetchData = async () => {
             const route = await RouteService.getById(params.id)
             setRoute(route)
         }
-        fetchData();
+        fetchData()
     }, [params.id])
+
     return (
         <div>
             <ListAddresses positions={route.positions}/>

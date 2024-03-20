@@ -7,26 +7,25 @@ function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const login = event => {
+    const login = async event => {
         event.preventDefault()
         const url = 'http://localhost:8000/api/v1/shortest_path/auth/login/'
-        const postData = async (url = '', data = {}) => {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json', 
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            return response.json();
-        }
-        postData(url, {email, password})
-            .then((data) => {
-                localStorage.setItem('auth', data.access_token)
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+            body: JSON.stringify({email, password})
+        });
+        try {
+            const responseBody = await response.json();
+
+            if (response.status !== 401) {
+                localStorage.setItem('auth', responseBody.access_token)
                 setIsAuth(true)
             }
-        )
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <main className='container mt-3'>

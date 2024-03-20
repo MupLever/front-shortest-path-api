@@ -7,22 +7,13 @@ function Signup() {
     const sigup = event => {
         event.preventDefault()
         const url = 'http://localhost:8000/api/v1/shortest_path/users/'
-        const postData = async (url = '', data = {}) => {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json', 
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+        fetch(url, {
+                method: 'POST', 
+                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
+                body: JSON.stringify({email, username, password})
             })
-            return response.json()
-        }
-        postData(url, {email, username, password})
-            .then((data) => {
-                console.log(data)
-            }
-        )
+            .then((response) => response.json())
+            .then((data) => console.log(data))
     }
     return (
         <main className='container mt-3'>

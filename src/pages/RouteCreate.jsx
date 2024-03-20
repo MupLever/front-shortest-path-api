@@ -1,21 +1,26 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 
 function RouteCreate() {
     class Address {
         constructor(address) {
-            this.city = ''
-            this.district = ''
-            this.street = ''
-            this.house_number = ''
+            this.address = address
+            // this.city = ''
+            // this.district = ''
+            // this.street = ''
+            // this.house_number = ''
         }
     }
     const [address, setAddress] = useState('')
-    const [addresses, setAddresses] = useState([new Address('')])
+    const [addresses, setAddresses] = useState([])
     const addAddress = (e) => {
         e.preventDefault()
         setAddresses([...addresses, new Address(address)])
     }
+    useEffect(() => {
+        console.log(addresses)
+    }, [addresses])
+
     return (
         <main className='container mt-3'>
             <h1 className='mb-4'>Создание маршрута</h1>
