@@ -1,25 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 
 function RouteCreate() {
-    class Address {
-        constructor(address) {
-            this.address = address
-            // this.city = ''
-            // this.district = ''
-            // this.street = ''
-            // this.house_number = ''
-        }
+    function debouce(caller, timeoutMs) {
+        let lastCallTimer;
+
+        return (...args) => {
+            if (lastCallTimer) {
+                clearTimeout(lastCallTimer);
+            }
+
+            lastCallTimer = setTimeout(() => {
+                caller(...args);
+                lastCallTimer = undefined;
+            }, timeoutMs);
+        };
     }
-    const [address, setAddress] = useState('')
+
+    function inputHandler(e) {
+        e.preventDefault();
+    
+        const { value } = e.target
+        const url = `http://localhost:8000/api/v1/shortest_path/addresses/?part_address=${value}`
+        fetch(url)
+            .then(response => response.json())
+            .then(addresses => {
+                console.log(addresses)
+                setAddresses([...addresses])
+            })
+    }
+
+    const debouncedInputHandler = debouce(inputHandler, 250)
     const [addresses, setAddresses] = useState([])
-    const addAddress = (e) => {
-        e.preventDefault()
-        setAddresses([...addresses, new Address(address)])
-    }
-    useEffect(() => {
-        console.log(addresses)
-    }, [addresses])
 
     return (
         <main className='container mt-3'>
@@ -42,10 +54,10 @@ function RouteCreate() {
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Адрес</label>
                             <div className='col-sm-6'>
-                                <input type='text' name='text' className='form-control' onChange={(e) => setAddress(e.target.value)}/>
+                                <input type='text' name='text' className='form-control' onChange={(e) => debouncedInputHandler(e)}/>
                             </div>
                             <div className='col-sm-2 px-1'>
-                                <button className='btn btn-dark' onClick={addAddress}>Добавить</button>
+                                <button className='btn btn-dark'>Добавить</button>
                             </div>
                         </div>
                         <input type='submit' value='Создать' className='btn btn-dark'/>

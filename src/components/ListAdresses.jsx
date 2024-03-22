@@ -1,7 +1,7 @@
 import React from 'react';
 import AddressItem from './AddressItem';
 
-function ListAddress({positions}) {
+function ListAddresses({positions}) {
     return (
         <div>
             {positions.map(node => 
@@ -11,4 +11,4 @@ function ListAddress({positions}) {
   );
 }
 
-export default ListAddress;
+export default ListAddresses;
