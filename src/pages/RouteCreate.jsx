@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import Addresses from '../components/Addresses';
 
 
 function RouteCreate() {
@@ -25,13 +26,22 @@ function RouteCreate() {
         fetch(url)
             .then(response => response.json())
             .then(addresses => {
-                console.log(addresses)
                 setAddresses([...addresses])
             })
     }
 
     const debouncedInputHandler = debouce(inputHandler, 250)
+    const [inputData, setInputData] = useState('')
     const [addresses, setAddresses] = useState([])
+    const [fetchAddresses, setFetchAddresses] = useState([])
+    const addAddress = (address) => {
+        setInputData('')
+        setAddresses([])
+        setFetchAddresses([...fetchAddresses, address])
+    }
+    useEffect(() => {
+        console.log(fetchAddresses)
+    }, [fetchAddresses])
 
     return (
         <main className='container mt-3'>
@@ -53,11 +63,12 @@ function RouteCreate() {
                         </div>
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Адрес</label>
-                            <div className='col-sm-6'>
-                                <input type='text' name='text' className='form-control' onChange={(e) => debouncedInputHandler(e)}/>
-                            </div>
-                            <div className='col-sm-2 px-1'>
-                                <button className='btn btn-dark'>Добавить</button>
+                            <div className='col-sm-8'>
+                                <input type='text' name='text' className='form-control' value={inputData} onChange={(e) => {
+                                    setInputData(e.target.value)
+                                    debouncedInputHandler(e)
+                                }}/>
+                                <Addresses addresses={addresses} callback={addAddress}/>
                             </div>
                         </div>
                         <input type='submit' value='Создать' className='btn btn-dark'/>

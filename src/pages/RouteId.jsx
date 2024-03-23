@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import RouteService from '../API/RouteSetvice';
-import ListAddresses from '../components/ListAdresses';
+import ListAddresses from '../components/ListAddresses';
 
 function RouteId() {
     const params = useParams();
