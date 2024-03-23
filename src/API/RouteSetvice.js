@@ -8,7 +8,7 @@ export default class RouteService {
                 'http://localhost:8000/api/v1/shortest_path/routes/',
                 {
                     headers: {
-                        'Authorization': 'Bearer ' + auth,
+                        'Authorization': `Bearer ${auth}`,
                         'Accept': 'application/json'
                     }
                 }
@@ -24,7 +24,7 @@ export default class RouteService {
                 `http://localhost:8000/api/v1/shortest_path/routes/${id}/`,
                 {
                     headers: {
-                        'Authorization': 'Bearer ' + auth,
+                        'Authorization': `Bearer ${auth}`,
                         'Accept': 'application/json'
                     }
                 }
@@ -33,18 +33,18 @@ export default class RouteService {
         }
     }
 
-    static async createRoute({data}) {
-        console.log(data)
+    static async create({data}) {
         const auth = localStorage.getItem('auth')
         if (auth) {
             const url = 'http://localhost:8000/api/v1/shortest_path/routes/'
-            const response = await fetch(url, {
-                method: 'POST', 
-                headers: {'Authorization': 'Bearer ' + auth, 'Accept': 'application/json', 'Content-Type': 'application/json'}, 
-                body: JSON.stringify(data)
-            })
-            const response_json = await response.json()
-            return response_json;
+            const response = axios.post(url, data, {headers: {
+                'Authorization': `Bearer ${auth}`,
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json'
+            }})
+    
+            const response_data = await response.data
+            return response_data;
 
         }
     }

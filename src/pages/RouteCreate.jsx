@@ -31,7 +31,6 @@ function RouteCreate() {
             })
     }
 
-
     const debouncedInputHandler = debounce(inputHandler, 250)
     const [inputData, setInputData] = useState('')
     const [addresses, setAddresses] = useState([])
@@ -46,28 +45,32 @@ function RouteCreate() {
         setInputData('')
         setAddresses([])
     }
-    const createRoute = (e) => {
-        e.preventDefault()
-        RouteService.createRoute({data: {...fetchData, addresses_ids: fetchAddresses.map(address => address.id)}})
+    const createRoute = () => {
+        RouteService.create(
+            {data: {...fetchData, addresses_ids: fetchAddresses.map(address => address.id)}}
+        )
     }
-    
 
     return (
         <main className='container mt-3'>
             <h1 className='mb-4'>Создание маршрута</h1>
             <div className='card col-6'>
                 <div className='card-body'>
-                    <form>
+                    <form onSubmit={createRoute}>
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Исполнитель</label>
                             <div className='col-sm-8'>
-                                <input type='text' name='executor' className='form-control' onChange={(e) => setFetchData({...fetchData, executor: e.target.value})}/>
+                                <input type='text' name='executor' className='form-control' onChange={(e) => setFetchData(
+                                    {...fetchData, executor: e.target.value}
+                                )}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Дата исполнения</label>
                             <div className='col-sm-8'>
-                                <input type='date' name='execution_date' className='form-control'  onChange={(e) => setFetchData({...fetchData, execution_date: Date.parse(e.target.value)})}/>
+                                <input type='date' name='execution_date' className='form-control' onChange={(e) => setFetchData(
+                                    {...fetchData, execution_date: Date.parse(e.target.value)}
+                                )}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
@@ -80,8 +83,7 @@ function RouteCreate() {
                                 <Addresses addresses={addresses} callback={addAddress}/>
                             </div>
                         </div>
-                        {/* <input type='submit' value='Создать' className='btn btn-dark'/> */}
-                        <button className='btn btn-dark' onClick={createRoute}>Создать</button>
+                        <input type='submit' value='Создать' className='btn btn-dark'/>
                     </form>
                 </div>
             </div>
