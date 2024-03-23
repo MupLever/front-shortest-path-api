@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Addresses from '../components/Addresses';
+import RouteService from '../API/RouteSetvice';
 
 
 function RouteCreate() {
-    function debouce(caller, timeoutMs) {
+    function debounce(caller, timeoutMs) {
         let lastCallTimer;
 
         return (...args) => {
@@ -26,22 +27,30 @@ function RouteCreate() {
         fetch(url)
             .then(response => response.json())
             .then(addresses => {
-                setAddresses([...addresses])
+                setAddresses(addresses)
             })
     }
 
-    const debouncedInputHandler = debouce(inputHandler, 250)
+
+    const debouncedInputHandler = debounce(inputHandler, 250)
     const [inputData, setInputData] = useState('')
     const [addresses, setAddresses] = useState([])
     const [fetchAddresses, setFetchAddresses] = useState([])
+    const [fetchData, setFetchData] = useState({
+        executor: '',
+        execution_date: Date.now(),
+        addresses_ids: []
+    })
     const addAddress = (address) => {
+        setFetchAddresses([...fetchAddresses, address])
         setInputData('')
         setAddresses([])
-        setFetchAddresses([...fetchAddresses, address])
     }
-    useEffect(() => {
-        console.log(fetchAddresses)
-    }, [fetchAddresses])
+    const createRoute = (e) => {
+        e.preventDefault()
+        RouteService.createRoute({data: {...fetchData, addresses_ids: fetchAddresses.map(address => address.id)}})
+    }
+    
 
     return (
         <main className='container mt-3'>
@@ -52,13 +61,13 @@ function RouteCreate() {
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Исполнитель</label>
                             <div className='col-sm-8'>
-                                <input type='text' name='executor' className='form-control'/>
+                                <input type='text' name='executor' className='form-control' onChange={(e) => setFetchData({...fetchData, executor: e.target.value})}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Дата исполнения</label>
                             <div className='col-sm-8'>
-                                <input type='date' name='execution_date' className='form-control'/>
+                                <input type='date' name='execution_date' className='form-control'  onChange={(e) => setFetchData({...fetchData, execution_date: Date.parse(e.target.value)})}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
@@ -71,7 +80,8 @@ function RouteCreate() {
                                 <Addresses addresses={addresses} callback={addAddress}/>
                             </div>
                         </div>
-                        <input type='submit' value='Создать' className='btn btn-dark'/>
+                        {/* <input type='submit' value='Создать' className='btn btn-dark'/> */}
+                        <button className='btn btn-dark' onClick={createRoute}>Создать</button>
                     </form>
                 </div>
             </div>
