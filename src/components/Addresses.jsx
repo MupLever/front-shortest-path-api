@@ -3,7 +3,7 @@ import Address from './Address';
 
 function Addresses({addresses, callback}) {
     return (
-        <div className='card m-0 col-6' style={{position: "absolute", width: "25rem"}}>
+        <div className='card' style={{position: "absolute", width: "25rem"}}>
             {addresses.map(node =>
                 <Address address={node} key={node.id} callback={callback}/>
             )}

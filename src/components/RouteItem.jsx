@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 
 function RouteItem({route}) {
+    console.log(route)
     const navigate = useNavigate()
     return (
         <div className='card m-3'>

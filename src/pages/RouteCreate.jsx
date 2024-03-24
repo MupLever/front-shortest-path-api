@@ -45,6 +45,11 @@ function RouteCreate() {
         setInputData('')
         setAddresses([])
     }
+
+    const removeAddress = (address) => {
+        setFetchAddresses(fetchAddresses.filter(fa => fa.id !== address.id))
+    }
+
     const createRoute = () => {
         RouteService.create(
             {data: {...fetchData, addresses_ids: fetchAddresses.map(address => address.id)}}
@@ -54,38 +59,53 @@ function RouteCreate() {
     return (
         <main className='container mt-3'>
             <h1 className='mb-4'>Создание маршрута</h1>
-            <div className='card col-6'>
-                <div className='card-body'>
-                    <form onSubmit={createRoute}>
-                        <div className='mb-3 row'>
-                            <label className='col-sm-4 col-form-label'>Исполнитель</label>
-                            <div className='col-sm-8'>
-                                <input type='text' name='executor' className='form-control' onChange={(e) => setFetchData(
-                                    {...fetchData, executor: e.target.value}
-                                )}/>
-                            </div>
+            <div className='row'>
+                <div className='col-6'>
+                    <div className='card'>
+                        <div className='card-body'>
+                            <form onSubmit={createRoute}>
+                                <div className='mb-3 row'>
+                                    <label className='col-sm-4 col-form-label'>Исполнитель</label>
+                                    <div className='col-sm-8'>
+                                        <input type='text' name='executor' className='form-control' onChange={(e) => setFetchData(
+                                            {...fetchData, executor: e.target.value}
+                                        )}/>
+                                    </div>
+                                </div>
+                                <div className='mb-3 row'>
+                                    <label className='col-sm-4 col-form-label'>Дата исполнения</label>
+                                    <div className='col-sm-8'>
+                                        <input type='date' name='execution_date' className='form-control' onChange={(e) => setFetchData(
+                                            {...fetchData, execution_date: Date.parse(e.target.value)}
+                                        )}/>
+                                    </div>
+                                </div>
+                                <div className='mb-3 row'>
+                                    <label className='col-sm-4 col-form-label'>Адрес</label>
+                                    <div className='col-sm-8'>
+                                        <input type='text' name='text' className='form-control' value={inputData} onChange={(e) => {
+                                            setInputData(e.target.value)
+                                            debouncedInputHandler(e)
+                                        }}/>{
+                                            addresses.length ?
+                                            <Addresses addresses={addresses} callback={addAddress}/> :
+                                            <div></div>
+                                        }
+
+                                    </div>
+                                </div>
+                                <input type='submit' value='Создать' className='btn btn-dark'/>
+                            </form>
                         </div>
-                        <div className='mb-3 row'>
-                            <label className='col-sm-4 col-form-label'>Дата исполнения</label>
-                            <div className='col-sm-8'>
-                                <input type='date' name='execution_date' className='form-control' onChange={(e) => setFetchData(
-                                    {...fetchData, execution_date: Date.parse(e.target.value)}
-                                )}/>
-                            </div>
-                        </div>
-                        <div className='mb-3 row'>
-                            <label className='col-sm-4 col-form-label'>Адрес</label>
-                            <div className='col-sm-8'>
-                                <input type='text' name='text' className='form-control' value={inputData} onChange={(e) => {
-                                    setInputData(e.target.value)
-                                    debouncedInputHandler(e)
-                                }}/>
-                                <Addresses addresses={addresses} callback={addAddress}/>
-                            </div>
-                        </div>
-                        <input type='submit' value='Создать' className='btn btn-dark'/>
-                    </form>
+                    </div>
                 </div>
+                <div className='col-6'>{
+                    fetchAddresses.length ?
+                    <Addresses addresses={fetchAddresses} callback={removeAddress}/> :
+                    <div></div>
+                }
+                </div>
+
             </div>
         </main>
     )
