@@ -58,9 +58,9 @@ function RouteCreate() {
 
     return (
         <main className='container mt-3'>
-            <h1 className='mb-4'>Создание маршрута</h1>
             <div className='row'>
                 <div className='col-6'>
+                    <h1 className='mb-4'>Создание маршрута</h1>
                     <div className='card'>
                         <div className='card-body'>
                             <form onSubmit={createRoute}>
@@ -99,11 +99,16 @@ function RouteCreate() {
                         </div>
                     </div>
                 </div>
-                <div className='col-6'>{
-                    fetchAddresses.length ?
-                    <Addresses addresses={fetchAddresses} callback={removeAddress}/> :
-                    <div></div>
-                }
+                <div className='col-6'>
+                    {
+                        fetchAddresses.length ? 
+                        <div>
+                            <h1 className='mb-4'>Выбранные адреса</h1>
+                            <Addresses addresses={fetchAddresses} callback={removeAddress}/>
+                        </div> 
+                        :
+                        <div></div>
+                    }
                 </div>
 
             </div>

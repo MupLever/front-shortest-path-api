@@ -13,7 +13,7 @@ function Header() {
     return (
         <div className='d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-danger text-white border-bottom box-shadow'>
             <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
-                <li><h5 className='my-0 mr-md-auto font-weight-normal'>ОптиМа</h5></li>
+                <li><h4 className='my-0 mr-md-auto font-weight-normal'>ОптиМа</h4></li>
             </ul>
             <div className='text-end'>
                 <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>

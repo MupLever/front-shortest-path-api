@@ -10,7 +10,8 @@ function Routes() {
             setRoutes(routes)
         }
         fetchData();
-    }, []) 
+    }, [])
+
     return (
         <div>
             <ListRoute routes={routes}/>
