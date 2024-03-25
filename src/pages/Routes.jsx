@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import RouteService from '../API/RouteSetvice';
-import ListRoute from '../components/ListRoute';
+import RouteList from '../components/RouteList';
 
 function Routes() {
     const [routes, setRoutes] = useState([])
@@ -14,7 +14,7 @@ function Routes() {
 
     return (
         <div>
-            <ListRoute routes={routes}/>
+            <RouteList routes={routes}/>
         </div>
     )
 }

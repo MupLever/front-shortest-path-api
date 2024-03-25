@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const sigup = event => {
+    const [signupData, setSignupData] = useState({username: '', email: '', password: ''})
+    const confirmPasswordInputRef = useRef()
+    const navigate = useNavigate()
+
+    const sigup = async event => {
         event.preventDefault()
-        const url = 'http://localhost:8000/api/v1/shortest_path/users/'
-        fetch(url, {
-                method: 'POST', 
-                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
-                body: JSON.stringify({email, username, password})
-            })
-            .then(response => response.json())
-            .then(data => console.log(data))
+        if (confirmPasswordInputRef.current.value === signupData.password) {
+            try {
+                const url = 'http://localhost:8000/api/v1/shortest_path/users/'
+                const response = await fetch(url, {
+                    method: 'POST', 
+                    headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
+                    body: JSON.stringify(signupData)
+                })
+                const response_json = await response.json()
+
+                (function() {
+                    navigate("/login")
+                }());
+
+                return response_json;
+            } catch (error) {
+                console.log(`ERROR: ${error}`)
+            }
+        } else {
+            console.log("ERROR: Пароли не совпадают");
+        }
+
     }
     return (
         <main className='container mt-3'>
@@ -24,25 +40,25 @@ function Signup() {
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>E-Mail</label><br/>
                             <div className='col-sm-8'>
-                                <input type='email' name='email' placeholder='example@email.com' className='form-control' required onChange={(e) => setEmail(e.target.value)}/>
+                                <input type='email' name='email' placeholder='example@email.com' className='form-control' required onChange={(e) => setSignupData({...signupData, email: e.target.value})}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Имя</label>
                             <div className='col-sm-8'>
-                                <input type='text' name='username' required placeholder='Jpyatachkov' className='form-control' onChange={(e) => setUsername(e.target.value)}/>
+                                <input type='text' name='username' required placeholder='Jpyatachkov' className='form-control' onChange={(e) => setSignupData({...signupData, username: e.target.value})}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Пароль</label>
                             <div className='col-sm-8'>
-                                <input type='password' name='password' required className='form-control' onChange={(e) => setPassword(e.target.value)}/>
+                                <input type='password' name='password' required className='form-control' onChange={(e) => setSignupData({...signupData, password: e.target.value})}/>
                             </div>
                         </div>
                         <div className='mb-3 row'>
                             <label className='col-sm-4 col-form-label'>Подтверждение пароля</label>
                             <div className='col-sm-8'>
-                                <input type='password' name='password_confirmation' required className='form-control'/>
+                                <input type='password' name='password_confirmation' required className='form-control' ref={confirmPasswordInputRef}/>
                             </div>
                         </div>
                         <input type='submit' value='Создать' className='btn btn-dark'/>

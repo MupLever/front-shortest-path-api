@@ -12,7 +12,7 @@ function AddressItem({address, duration}) {
             <div className='card mx-3'>
                 <ul className='nav me-lg-auto justify-content-center p-3'>
                     <li className='m-1'><Node/></li>
-                    <li className='m-1'>{address.city}, {address.street}, {address.house_number}</li>
+                    <li className='m-1'>{address.city}, {address.district}, {address.street}, {address.house_number}</li>
                 </ul>
             </div>
         </div>

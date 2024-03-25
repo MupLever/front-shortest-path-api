@@ -1,7 +1,7 @@
 import React from 'react';
 import RouteItem from './RouteItem';
 
-function ListRoute({routes}) {
+function RouteList({routes}) {
     return (
         <div>
             {routes.map(route => 
@@ -11,4 +11,4 @@ function ListRoute({routes}) {
   );
 }
 
-export default ListRoute;
+export default RouteList;

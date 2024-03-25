@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Addresses from '../components/Addresses';
 import RouteService from '../API/RouteSetvice';
 
 
 function RouteCreate() {
+    const navigate = useNavigate()
     function debounce(caller, timeoutMs) {
         let lastCallTimer;
 
@@ -27,33 +29,41 @@ function RouteCreate() {
         fetch(url)
             .then(response => response.json())
             .then(addresses => {
-                setAddresses(addresses)
+                setDropDownaddresses(addresses)
             })
     }
 
     const debouncedInputHandler = debounce(inputHandler, 250)
-    const [inputData, setInputData] = useState('')
-    const [addresses, setAddresses] = useState([])
+    const [inputAddress, setInputAddress] = useState('')
+    const [dropDownaddresses, setDropDownaddresses] = useState([])
     const [fetchAddresses, setFetchAddresses] = useState([])
     const [fetchData, setFetchData] = useState({
         executor: '',
         execution_date: Date.now(),
         addresses_ids: []
     })
+
     const addAddress = (address) => {
         setFetchAddresses([...fetchAddresses, address])
-        setInputData('')
-        setAddresses([])
+        setInputAddress('')
+        setDropDownaddresses([])
     }
 
     const removeAddress = (address) => {
         setFetchAddresses(fetchAddresses.filter(fa => fa.id !== address.id))
     }
 
-    const createRoute = () => {
-        RouteService.create(
+    const createRoute = async (e) => {
+        e.preventDefault()
+        const response = await RouteService.create(
             {data: {...fetchData, addresses_ids: fetchAddresses.map(address => address.id)}}
         )
+        
+        if (response.status === 200) {
+            (function() {
+                navigate("/routes")
+            }())
+        }
     }
 
     return (
@@ -83,12 +93,12 @@ function RouteCreate() {
                                 <div className='mb-3 row'>
                                     <label className='col-sm-4 col-form-label'>Адрес</label>
                                     <div className='col-sm-8'>
-                                        <input type='text' name='text' className='form-control' value={inputData} onChange={(e) => {
-                                            setInputData(e.target.value)
+                                        <input type='text' name='text' className='form-control' value={inputAddress} onChange={(e) => {
+                                            setInputAddress(e.target.value)
                                             debouncedInputHandler(e)
                                         }}/>{
-                                            addresses.length ?
-                                            <Addresses addresses={addresses} callback={addAddress}/> :
+                                            dropDownaddresses.length ?
+                                            <Addresses addresses={dropDownaddresses} callback={addAddress}/> :
                                             <div></div>
                                         }
 
@@ -110,7 +120,6 @@ function RouteCreate() {
                         <div></div>
                     }
                 </div>
-
             </div>
         </main>
     )
